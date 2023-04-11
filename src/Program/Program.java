@@ -1,6 +1,7 @@
 package Program;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
@@ -21,18 +22,21 @@ public class Program {
         System.out.print("Name: ");
         String name = tec.nextLine();
 
-        System.out.print("Email:");
+        System.out.print("Email: ");
         String email = tec.nextLine();
 
-        System.out.println("Birth date (DD/MM/YYYY): ");
+        System.out.print("Birth date (DD/MM/YYYY): ");
         String birthDate = tec.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localdate = LocalDate.parse(birthDate, formatter);
 
         Client c1 = new Client(name, email, localdate);
 
-        LocalDate moment = localdate.now();
-        OrderStatus status = OrderStatus.PROCESSING;
+        System.out.println("Enter order data: ");
+        System.out.print("Status: ");
+        OrderStatus status = OrderStatus.valueOf(tec.nextLine());
+
+        LocalDateTime moment = LocalDateTime.now();
 
         Order order = new Order(moment, status, c1);
 
@@ -57,17 +61,10 @@ public class Program {
             order.addItem(orderItem);
         }
 
+        System.out.println("-------------");
         System.out.println("ORDER SUMMARY: ");
+        System.out.println(order.toString());
 
-
-        System.out.println("Enter order data: ");
-        System.out.print("Status: ");
-
-
-
-
-        System.out.println(localdate);
-        System.out.println(formatter.format(localdate));
         tec.close();
     }
 }
